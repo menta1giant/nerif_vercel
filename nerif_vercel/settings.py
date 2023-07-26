@@ -94,19 +94,20 @@ WSGI_APPLICATION = 'nerif_vercel.wsgi.app'
 
 DATABASES = {
     'default': {
-
         'ENGINE': 'django.db.backends.postgresql',
-
+        'URL': os.environ.get("DB_URL"),
+        'NAME': os.environ.get("DB_NAME"),
+        'USER': os.environ.get("DB_USER"),
+        'PASSWORD': os.environ.get("DB_PASSWORD"),
+        'HOST': os.environ.get("DB_HOST"),
+        'PORT': os.environ.get("DB_PORT"),
+    } if os.environ.get('VERCEL') else {
+        'ENGINE': 'django.db.backends.postgresql',
         'URL': 'postgresql://postgres:Nz9nRXCG2HdyKcUvL3qL@containers-us-west-44.railway.app:7471/railway',
-
         'NAME': 'railway',
-
         'USER': 'postgres',
-
         'PASSWORD': 'Nz9nRXCG2HdyKcUvL3qL',
-
         'HOST': 'containers-us-west-44.railway.app',
-
         'PORT': '7471',
     }
 }
