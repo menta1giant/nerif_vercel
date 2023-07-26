@@ -1,0 +1,1 @@
+DEFAULT_SUCCESS_MESSAGE = 'Saved successfully'

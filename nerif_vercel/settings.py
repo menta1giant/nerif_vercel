@@ -30,6 +30,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
+
+    'users',
 ]
 
 REST_FRAMEWORK = {
@@ -41,7 +43,7 @@ REST_FRAMEWORK = {
     ]
 }
 
-#AUTH_USER_MODEL = 'users.User' 
+AUTH_USER_MODEL = 'users.User' 
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:9996",
