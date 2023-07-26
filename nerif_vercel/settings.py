@@ -50,11 +50,9 @@ REST_FRAMEWORK = {
 AUTH_USER_MODEL = 'users.User' 
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:9996",
     "http://localhost:9997",
     "http://5.228.130.64:9997",
-    "http://10.8.8.6:9997",
-    'https://nerif-fl9riey5v-menta1giant.vercel.app',
+    'https://nerif-vue.vercel.app/',
 ]
 
 #CORS_ALLOWED_ALL_ORIGINS = True
