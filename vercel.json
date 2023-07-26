@@ -1,14 +1,14 @@
 {
   "builds": [
     {
-      "src": "nerif_django/wsgi.py",
+      "src": "nerif_vercel/wsgi.py",
       "use": "@vercel/python"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "nerif_django/wsgi.py"
+      "dest": "nerif_vercel/wsgi.py"
     }
   ]
 }
