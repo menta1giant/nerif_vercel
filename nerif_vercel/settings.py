@@ -1,14 +1,13 @@
 from pathlib import Path
 import os
+import environ
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+env = environ.Env()
+environ.Env.read_env()
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-7f9r42a9dlx632olmd7=yzyg#9at&1dljnaf3+9yti7z-wls)u'
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -30,6 +29,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
+    'storages',
 
     'matches',
     'storage',
@@ -52,10 +52,15 @@ AUTH_USER_MODEL = 'users.User'
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:9997",
     "http://5.228.130.64:9997",
-    'https://nerif-vue.vercel.app/',
+    'https://nerif-vue.vercel.app',
 ]
 
-#CORS_ALLOWED_ALL_ORIGINS = True
+DEFAULT_FILE_STORAGE = 'storages.RemoteStorage'  # path to file we created before
+YANDEX_CLIENT_DOCS_BUCKET_NAME = 'menta1giant-test'
+AWS_ACCESS_KEY_ID = env('AWS_PUBLIC_ACCESS_KEY')
+AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
+AWS_S3_ENDPOINT_URL = 'https://storage.yandexcloud.net'
+AWS_S3_REGION_NAME = 'storage'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -95,20 +100,12 @@ WSGI_APPLICATION = 'nerif_vercel.wsgi.app'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'URL': os.environ.get("DB_URL"),
-        'NAME': os.environ.get("DB_NAME"),
-        'USER': os.environ.get("DB_USER"),
-        'PASSWORD': os.environ.get("DB_PASSWORD"),
-        'HOST': os.environ.get("DB_HOST"),
-        'PORT': os.environ.get("DB_PORT"),
-    } if os.environ.get('VERCEL') else {
-        'ENGINE': 'django.db.backends.postgresql',
-        'URL': 'postgresql://postgres:Nz9nRXCG2HdyKcUvL3qL@containers-us-west-44.railway.app:7471/railway',
-        'NAME': 'railway',
-        'USER': 'postgres',
-        'PASSWORD': 'Nz9nRXCG2HdyKcUvL3qL',
-        'HOST': 'containers-us-west-44.railway.app',
-        'PORT': '7471',
+        'URL': env("DB_URL"),
+        'NAME': env("DB_NAME"),
+        'USER': env("DB_USER"),
+        'PASSWORD': env("DB_PASSWORD"),
+        'HOST': env("DB_HOST"),
+        'PORT': env("DB_PORT")
     }
 }
 
