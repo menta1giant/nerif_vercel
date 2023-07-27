@@ -1,4 +1,5 @@
 from django.db import models
+from nerif_vercel.storages import select_storage
 
 class Tag(models.Model):
     name = models.CharField(max_length=50)
@@ -12,7 +13,7 @@ class BlogPost(models.Model):
     author = models.CharField(max_length=100)
     date_published = models.DateField()
     tags = models.ManyToManyField(Tag, blank=True)
-    cover = models.ImageField(default='', upload_to='blog/covers/')
+    cover = models.ImageField(storage=select_storage(), upload_to='blog/covers/')
 
     def __str__(self):
         return self.title

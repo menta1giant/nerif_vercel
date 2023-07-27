@@ -2,7 +2,7 @@ from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 from storages.backends.s3boto3 import S3Boto3Storage
 
-localStorage = FileSystemStorage(location="/media")
+localStorage = FileSystemStorage()
 
 class RemoteStorage(S3Boto3Storage):
     bucket_name = settings.YANDEX_CLIENT_DOCS_BUCKET_NAME

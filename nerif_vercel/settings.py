@@ -59,6 +59,7 @@ DEFAULT_FILE_STORAGE = 'storages.RemoteStorage'  # path to file we created befor
 YANDEX_CLIENT_DOCS_BUCKET_NAME = 'menta1giant-test'
 AWS_ACCESS_KEY_ID = env('AWS_PUBLIC_ACCESS_KEY')
 AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
+AWS_DEFAULT_REGION = 'ru-central1'
 AWS_S3_ENDPOINT_URL = 'https://storage.yandexcloud.net'
 AWS_S3_REGION_NAME = 'storage'
 
@@ -149,6 +150,8 @@ MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media/'
 STATICFILES_DIRS = os.path.join(BASE_DIR, 'static'),
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles', 'static')
+
+#STORAGES = {"staticfiles": {"BACKEND": "storages.backends.s3boto3.S3StaticStorage"}}
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

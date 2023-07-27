@@ -3,6 +3,7 @@ from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractUser
 from .image_utils import resize_image
 from datetime import datetime, date 
+from nerif_vercel.storages import select_storage
 
 class UserManager(BaseUserManager):
     use_in_migrations = True
@@ -53,7 +54,7 @@ class User(AbstractUser):
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
-    profile_photo = models.ImageField(default='', upload_to='profile_images/')
+    profile_photo = models.ImageField(storage=select_storage(), upload_to='profile_images/')
 
     def save(self, *args, **kwargs):
         deleted = False
