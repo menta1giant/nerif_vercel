@@ -18,34 +18,6 @@ from django.contrib.auth import authenticate, login, logout
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import IsAuthenticated
 
-import os
-from nerif_vercel.storages import select_storage
-
-class FakeImageUploadView(APIView):
-    def post(self, requests, **kwargs):
-        file_obj = requests.FILES.get('profile_photo', '')
-        print(file_obj)
-        file_directory_within_bucket = 'test/'
-
-        # synthesize a full file path; note that we included the filename
-        file_path_within_bucket = os.path.join(
-            file_directory_within_bucket,
-            file_obj.name
-        )
-
-        media_storage = select_storage()
-
-        media_storage.save(file_path_within_bucket, file_obj)
-        file_url = media_storage.url(file_path_within_bucket)
-
-        return JsonResponse({
-            'message': 'OK',
-            'fileUrl': file_url,
-        })
-    
-    def get(self, request):
-        return Response(status=status.HTTP_200_OK)
-
 class CreateUserView(APIView):
     def post(self, request):
         email = request.data.get('email')
