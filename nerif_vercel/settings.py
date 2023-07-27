@@ -62,6 +62,7 @@ AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
 AWS_DEFAULT_REGION = 'ru-central1'
 AWS_S3_ENDPOINT_URL = 'https://storage.yandexcloud.net'
 AWS_S3_REGION_NAME = 'storage'
+AWS_S3_MAX_MEMORY_SIZE = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
