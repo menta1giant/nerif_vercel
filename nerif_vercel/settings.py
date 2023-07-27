@@ -158,4 +158,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles', 'static')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+FILE_UPLOAD_HANDLERS = [
+    "django.core.files.uploadhandler.TemporaryFileUploadHandler",
+]
 FILE_UPLOAD_TEMP_DIR = 'tmp'
