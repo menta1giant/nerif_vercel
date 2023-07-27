@@ -9,4 +9,4 @@ class RemoteStorage(S3Boto3Storage):
     file_overwrite = True
 
 def select_storage():
-    return localStorage if settings.DEBUG else RemoteStorage()
+    return RemoteStorage()
