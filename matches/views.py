@@ -24,7 +24,7 @@ class Matches(APIView):
             serializer.save()
             return Response(serializer.data, 200)
 
-        return Response(serializer.data, 401)
+        return Response(serializer.data, 400)
     
 class MatchesOdds(APIView):
     def get(self, request, format=None):
@@ -97,22 +97,26 @@ class PredictedMaps(APIView):
           pmap = PredictedMap.objects.get(match__match_id = data['match'], map_order = data['map_order'])
           serializer = PredictedMapPostSerializer(pmap, data=data)
         except PredictedMap.DoesNotExist:
-          team_favorite, created_favorite = Team.objects.get_or_create(team_id=data['team_favorite'], defaults={ 'name': data['team_favorite_name'] })
-          team_opponent, created_opponent = Team.objects.get_or_create(team_id=data['team_opponent'], defaults={ 'name': data['team_opponent_name'] })
-          match, created_match = Match.objects.get_or_create(match_id=data['match'], defaults={ 
-              'match_date': data['match_date'], 
-              'odds_change': data['odds_change'], 
-              'team_favorite': team_favorite, 
-              'team_opponent': team_opponent 
-          })
+            try:
+                team_favorite, created_favorite = Team.objects.get_or_create(team_id=data['team_favorite'], defaults={ 'name': data['team_favorite_name'] })
+                team_opponent, created_opponent = Team.objects.get_or_create(team_id=data['team_opponent'], defaults={ 'name': data['team_opponent_name'] })
+                match, created_match = Match.objects.get_or_create(match_id=data['match'], defaults={ 
+                    'match_date': data['match_date'], 
+                    'odds_change': data['odds_change'], 
+                    'team_favorite': team_favorite, 
+                    'team_opponent': team_opponent 
+                })
 
-          serializer = PredictedMapPostSerializer(data=data)
+                serializer = PredictedMapPostSerializer(data=data)
+            except:
+                return Response(status=400)
+        except: return Response(status=400)
         
         if (serializer.is_valid()):
             serializer.save()
             return Response(serializer.data, 200)
         
-        return Response(serializer.data, 401)
+        return Response(serializer.data, 400)
     
 class Rulesets(APIView):
     def get(self, request, format=None):
@@ -129,7 +133,7 @@ class Rulesets(APIView):
             serializer.save()
             return Response(serializer.data, 200)
         
-        return Response(serializer.data, 401)
+        return Response(serializer.data, 400)
     
 class CappersView(APIView):
     def get(self, request):
@@ -144,7 +148,7 @@ class EndorsementsView(APIView):
         endorsements = Endorsement.objects.all()
         if (cappers):
             cappers = cappers.split(',')
-            print(cappers)
+
             endorsements = endorsements.filter(author__pk__in=cappers)
 
         serializer = EndorsementSerializer(endorsements, many=True)

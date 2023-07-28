@@ -25,7 +25,7 @@ class DocumentationArticlesView(APIView):
         serializer = DocumentationArticleSeriazlier(articles, many=True)
 
         counts = {obj["name"]: obj["article_count"] for obj in [dict(item) for item in sections_count_serializer.data]}
-        print(counts)
+
         return Response({ 'articles': serializer.data, 'counts': counts })
     
 class DocumentationArticleView(APIView):

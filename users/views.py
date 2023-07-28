@@ -72,7 +72,7 @@ class SignupPaymentInfo(APIView):
         token = request.auth
         user_instance = get_user_from_token(token)
 
-        if (not(user_instance)): return Response(400)
+        if (not(user_instance)): return Response(status=404)
         
         form_user = SignupPaymentInfoForm(data=request.data, instance=user_instance)
 
@@ -94,7 +94,7 @@ class SignupPersonalInfo(APIView):
         token = request.auth
         user_instance = get_user_from_token(token)
 
-        if (not(user_instance)): return Response(status=401)
+        if (not(user_instance)): return Response(status=404)
         profile, _ = Profile.objects.get_or_create(user=user_instance)
 
         form_profile = ProfileForm(data=request.data, files=request.FILES, instance=profile)
@@ -206,13 +206,13 @@ class PaymentInfo(APIView):
             user = form.save(commit=False)
             user.save()
             return Response({'message': DEFAULT_SUCCESS_MESSAGE}, status=200)
-        return Response({'message': 'Intentionally bad frontend validation has happened'}, status=401)
+        return Response({'message': 'Intentionally bad frontend validation has happened'}, status=400)
     
     def get(self, request):
         token = request.auth
         user_instance = get_user_from_token(token)
 
-        if (not(user_instance)): return Response(status=400)
+        if (not(user_instance)): return Response(status=404)
 
         form = PaymentInfoForm(instance=user_instance)
 
@@ -227,7 +227,7 @@ class LocalizationInfo(APIView):
         token = request.auth
         user_instance = get_user_from_token(token)
 
-        if (not(user_instance)): return Response(status=400)
+        if (not(user_instance)): return Response(status=404)
 
         form = LocalizationInfoForm(data=request.data, instance=user_instance)
 
