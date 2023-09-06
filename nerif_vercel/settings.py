@@ -13,7 +13,7 @@ SECRET_KEY = env('DJANGO_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['5.228.130.64', '.vercel.app']
+ALLOWED_HOSTS = [env('LOCALHOST_IP'), '.vercel.app']
 
 
 # Application definition
@@ -51,7 +51,7 @@ AUTH_USER_MODEL = 'users.User'
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:9997",
-    "http://5.228.130.64:9997",
+    f"http://{env('LOCALHOST_IP')}:9997",
     'https://nerif-vue.vercel.app',
 ]
 
